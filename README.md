@@ -39,6 +39,12 @@ pip install azure-identity pyspark pandas
 Set up Azure Blob Storage and configure your environment variables:
 
 For the environment variable, set either "dev," "pre," or "pro" to specify your environment.
+
+### Connection string
+
+Set up the connection strin for each environment: "dev", "pre" and "pro".
+
+### ACLs
 For each environment, set the following environment variables:
 
 CLIENT_ID_DEV, CLIENT_SECRET_DEV, CLIENT_TENANT_ID_DEV, STORAGE_ACCOUNT_DEV (for the "dev" environment).
