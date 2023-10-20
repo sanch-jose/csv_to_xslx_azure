@@ -1,5 +1,5 @@
 # Introduction
-This code is a useful utility for automating the conversion of CSV files to XLSX format and storing the converted files back in Azure Blob Storage. It leverages Azure services, Apache Spark, and other Python libraries to accomplish this task.
+This code is a useful utility for automating the conversion of CSV files to XLSX format and storing the converted files back in Azure Blob Storage. It leverages Azure services and other Python libraries to accomplish this task.
 
 ## Code Overview
 The code consists of two main functions:
