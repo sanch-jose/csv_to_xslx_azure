@@ -86,3 +86,5 @@ def convert_csv_to_xlsx(cloud_event):
     finally:
         # Stop Spark session
         spark.stop()
+
+convert_csv_to_xlsx(cloud_event)
