@@ -5,6 +5,19 @@ import pandas as pd
 import os
 import json
 
+def cloud_event(req: func.HttpRequest):
+    try:
+        # Obtén el cuerpo del HTTP request en formato JSON
+        event_data = req.get_json()
+
+        # Devuelve el JSON en bruto como respuesta
+        return func.HttpResponse(json.dumps(event_data), status_code=200, mimetype="application/json")
+
+    except Exception as e:
+        return func.HttpResponse(f"Ocurrió un error en el proceso: {str(e)}", status_code=500)
+
+
+
 def cloud_event_parser(cloud_event):
         
     # Analiza el evento JSON
