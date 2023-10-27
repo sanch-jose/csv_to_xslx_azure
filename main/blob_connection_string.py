@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
 from io import BytesIO
 from azure.storage.blob import BlobServiceClient
+import azure.functions as func
 import pandas as pd
 import os
 import json
@@ -15,8 +16,6 @@ def cloud_event(req: func.HttpRequest):
 
     except Exception as e:
         return func.HttpResponse(f"Ocurrió un error en el proceso: {str(e)}", status_code=500)
-
-
 
 def cloud_event_parser(cloud_event):
         
@@ -36,7 +35,7 @@ def cloud_event_parser(cloud_event):
         file_name = result["fileName"]
         paths.append(path)
         file_names.append(file_name)
-        container = result["message"].split("/")[2]
+        container = result["container"]
         containers.append(container)
 
     if environment == "dev":
@@ -64,8 +63,7 @@ def convert_csv_to_xlsx(cloud_event):
             with BytesIO() as input_blob:
                 blob_client.download_blob().download_to_stream(input_blob)
                 input_blob.seek(0)
-                df = pd.read_csv(input_blob, sep=';', quoting=3)
-                df = df.map(lambda x: x.encode('unicode_escape').decode('utf-8') if isinstance(x, str) else x)
+                df = pd.read_csv(input_blob, sep=';', quoting=3).map(lambda x: x.encode('unicode_escape').decode('utf-8') if isinstance(x, str) else x)
 
             # Changing the extension of the file to .xlsx
             base_blob_name, _ = os.path.splitext(path + "/" + file_name)
