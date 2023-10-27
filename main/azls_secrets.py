@@ -2,6 +2,7 @@ from azure.identity import DefaultAzureCredential, ClientSecretCredential
 from pyspark.sql import SparkSession
 from io import BytesIO
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+import azure.functions as func
 import pandas as pd
 import os
 import json
@@ -16,7 +17,6 @@ def cloud_event(req: func.HttpRequest):
 
     except Exception as e:
         return func.HttpResponse(f"Ocurrió un error en el proceso: {str(e)}", status_code=500)
-
 
 
 def cloud_event_parser(cloud_event):
